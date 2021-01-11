@@ -1,7 +1,8 @@
 This repository contains some algorithms for MCMC: Random-Walk Metropolis,
 the Independence Sampler, and Hamiltonian Monte Carlo. An example of sampling
 from a 'banana' distribution is included. Algorithms are written in c++ and
-use Armadillo.
+use Armadillo. First compile and run file 'banana.cpp', then analyse samples
+in 'banana.R'.
 
 # banana.R
 Analysis of algorithms sampling from the 'banana' distribution.
