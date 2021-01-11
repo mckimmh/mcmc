@@ -14,7 +14,7 @@ log_dbanana <- function(x){
   -0.005*x[1]^2 - 0.5*(x[2] + b*x[1]^2 - 100*b)^2
 }
 
-# Regeneration distribution found using a Laplace approximation
+# Laplace approximation
 mu_mean <- c(0, 100*b)
 mu_cov <- matrix(c(100, 0, 0, 1), nrow=2)
 dmu <- function(x){
@@ -45,7 +45,7 @@ y1 <- x1
 y2 <- x2 - b*x1^2 + 100*b
 
 # Plot samples
-plot(y1[1:n_plot],y2[1:n_plot], pch=20, cex=0.25)
+plot(y1[1:n_plot],y2[1:n_plot], pch=20, cex=0.25, xlab='V1', ylab='V2')
 contour(x_seq, y_seq, z, col ='gray', add=TRUE)
 
 # Monte Carlo estiamates of moments (check my calculations are correct)
@@ -61,81 +61,85 @@ plot(density(y2), main='Variable 2')
 ###############################
 # Samples from RWM Markov chain
 ###############################
-banana_samples <- read.table("~/rwm/banana_rwm_samples.txt",
+banana_rwm <- read.table("~/mcmc/banana_rwm_samples.txt",
                              quote="\"", comment.char="")
 
 # Trace plots
-if (nrow(banana_samples) > 1000){
-  plot(tail(banana_samples$V1, 1000), type = 'l', ylab='v1',
-       main='Trace plot v1')
-  plot(tail(banana_samples$V2, 1000), type = 'l', ylab='v2',
-       main='Trace plot v2')
+if (nrow(banana_rwm) > 1000){
+  plot(tail(banana_rwm$V1, 1000), type = 'l', ylab='v1',
+       main='Trace plot v1 (RWM)')
+  plot(tail(banana_rwm$V2, 1000), type = 'l', ylab='v2',
+       main='Trace plot v2 (RWM)')
 } else {
-  plot(banana_samples$V1, type = 'l', ylab='v1',
+  plot(banana_rwm$V1, type = 'l', ylab='v1',
        main='Trace plot v1')
-  plot(banana_samples$V2, type = 'l', ylab='v2',
+  plot(banana_rwm$V2, type = 'l', ylab='v2',
        main='Trace plot v2')
 }
 
 # Auto-correlation (bare in mind the output has already been thinned)
-acf(banana_samples$V1, main='ACF v1')
-acf(banana_samples$V2, main='ACF v2')
+acf(banana_rwm$V1, main='ACF v1 (RWM)')
+acf(banana_rwm$V2, main='ACF v2 (RWM)')
 
 # Short 2d trace plot
-if ((nrow(banana_samples) > 50)){
-  plot(tail(banana_samples, 50), type = 'l',
-       main='2D trace plot')
+if ((nrow(banana_rwm) > 50)){
+  plot(tail(banana_rwm, 50), type = 'l',
+       main='2D trace plot (RWM)')
 } else {
-  plot(banana_samples, type = 'l')
+  plot(banana_rwm, type = 'l')
 }
 
-# 2d Density estimate
-kde <- MASS::kde2d(banana_samples$V1, banana_samples$V2)
-contour(x_seq, y_seq, z, main='2d density')
-contour(kde, add=TRUE, col = 'blue')
+# Points plot
+contour(x_seq, y_seq, z, col = 'gray', main='Points plot (RWM)')
+contour(x_seq, y_seq, la, add=TRUE, col ='green')
+if ((nrow(banana_rwm) > 500)){
+  points(tail(banana_rwm, 500), main='Last samples')
+} else {
+  points(banana_rwm)
+}
 
 # Marginal densities
-plot(density(banana_samples$V1), main='KDE v1')
-plot(density(banana_samples$V2), main='KDE v2')
+plot(density(banana_rwm$V1), main='KDE v1 (RWM)')
+plot(density(banana_rwm$V2), main='KDE v2 (RWM)')
 
 # First and second moment
-colMeans(banana_samples)
-colMeans(banana_samples^2)
+colMeans(banana_rwm)
+colMeans(banana_rwm^2)
 
 #####################################################
 # Markov chain generated with an independence sampler
 # based on a Laplace approximation of the target
 #####################################################
-banana_indep_sampler <- read.table("~/rwm/banana_indep_sampler.txt",
+banana_indep_sampler <- read.table("~/mcmc/banana_indep_sampler.txt",
                                     quote="\"", comment.char="")
 
 # Trace plots
 if (nrow(banana_indep_sampler) > 1000){
   plot(tail(banana_indep_sampler$V1, 1000), type = 'l', ylab='v1',
-       main='Trace plot v1')
+       main='Trace plot v1 (Independence Sampler)')
   plot(tail(banana_indep_sampler$V2, 1000), type = 'l', ylab='v2',
-       main='Trace plot v2')
+       main='Trace plot v2 (Independence Sampler)')
 } else {
   plot(banana_indep_sampler$V1, type = 'l', ylab='v1',
-       main='Trace plot v1')
+       main='Trace plot v1 (Independence Sampler)')
   plot(banana_indep_sampler$V2, type = 'l', ylab='v2',
-       main='Trace plot v2')
+       main='Trace plot v2 (Independence Sampler)')
 }
 
 # Auto-correlation (bare in mind the output has already been thinned)
-acf(banana_indep_sampler$V1, main='ACF v1')
-acf(banana_indep_sampler$V2, main='ACF v2')
+acf(banana_indep_sampler$V1, main='ACF v1 (Independence Sampler)')
+acf(banana_indep_sampler$V2, main='ACF v2 (Independence Sampler)')
 
 # Short 2d trace plot
 if ((nrow(banana_indep_sampler) > 50)){
   plot(tail(banana_indep_sampler, 50), type = 'l',
-       main='2D trace plot')
+       main='2D trace plot (Independence Sampler)')
 } else {
   plot(banana_indep_sampler, type = 'l')
 }
 
 # Points plot
-contour(x_seq, y_seq, z, col = 'gray')
+contour(x_seq, y_seq, z, col = 'gray', main='Points plot (Independence Sampler)')
 contour(x_seq, y_seq, la, add=TRUE, col ='green')
 if ((nrow(banana_indep_sampler) > 500)){
   points(tail(banana_indep_sampler, 500), main='Last samples')
@@ -150,36 +154,36 @@ colMeans(banana_indep_sampler^2)
 #################################
 # Hamiltonian Monte Carlo Samples
 #################################
-banana_hmc <- read.table("~/rwm/banana_hmc_samples.txt",
+banana_hmc <- read.table("~/mcmc/banana_hmc_samples.txt",
                                    quote="\"", comment.char="")
 
 # Trace plots
 if (nrow(banana_hmc) > 1000){
   plot(tail(banana_hmc$V1, 1000), type = 'l', ylab='v1',
-       main='Trace plot v1')
+       main='Trace plot v1 (HMC)')
   plot(tail(banana_hmc$V2, 1000), type = 'l', ylab='v2',
-       main='Trace plot v2')
+       main='Trace plot v2 (HMC)')
 } else {
   plot(banana_hmc$V1, type = 'l', ylab='v1',
-       main='Trace plot v1')
+       main='Trace plot v1 (HMC)')
   plot(banana_hmc$V2, type = 'l', ylab='v2',
-       main='Trace plot v2')
+       main='Trace plot v2 (HMC)')
 }
 
 # Auto-correlation (bare in mind the output has already been thinned)
-acf(banana_hmc$V1, main='ACF v1')
-acf(banana_hmc$V2, main='ACF v2')
+acf(banana_hmc$V1, main='ACF v1 (HMC)')
+acf(banana_hmc$V2, main='ACF v2 (HMC)')
 
 # Short 2d trace plot
 if ((nrow(banana_hmc) > 50)){
   plot(tail(banana_hmc, 50), type = 'l',
-       main='2D trace plot')
+       main='2D trace plot (HMC)')
 } else {
-  plot(banana_hmc, type = 'l')
+  plot(banana_hmc, type = 'l', main='2D trace plot (HMC)')
 }
 
 # Points plot
-contour(x_seq, y_seq, z, col = 'gray')
+contour(x_seq, y_seq, z, col = 'gray', main='Points plot (HMC)')
 contour(x_seq, y_seq, la, add=TRUE, col ='green')
 if ((nrow(banana_hmc) > 500)){
   points(tail(banana_hmc, 500), main='Last samples')
@@ -190,57 +194,3 @@ if ((nrow(banana_hmc) > 500)){
 # First and second moment
 colMeans(banana_hmc)
 colMeans(banana_hmc^2)
-
-#############################
-# Hamiltonian Restore Samples
-#############################
-
-banana_hrstr <- read.table("~/rwm/banana_hrstr_samples.txt",
-                            quote="\"", comment.char="")
-
-# Remove infinite values (why do they appear?)
-if (length(which(is.infinite(banana_hrstr[,1])))>0){
-  banana_hrstr <- banana_hrstr[-which(is.infinite(banana_hrstr[,1])),]
-}
-if (length(which(is.infinite(banana_hrstr[,2])))){
-  banana_hrstr <- banana_hrstr[-which(is.infinite(banana_hrstr[,2])),]
-}
-if (length(which(is.infinite(banana_hrstr[,3])))){
-  banana_hrstr <- banana_hrstr[-which(is.infinite(banana_hrstr[,3])),]
-}
-# Remove NAN values
-if (length(which(is.na(banana_hrstr[,1]))) > 0){
-  banana_hrstr <- banana_hrstr[-which(is.na(banana_hrstr[,1])),]
-}
-if (length(which(is.na(banana_hrstr[,2]))) > 0){
-  banana_hrstr <- banana_hrstr[-which(is.na(banana_hrstr[,2])),]
-}
-if (length(which(is.na(banana_hrstr[,3]))) > 0){
-  banana_hrstr <- banana_hrstr[-which(is.na(banana_hrstr[,3])),]
-}
-
-# Plot contours and weighted samples
-contour(x_seq, y_seq, z, col = 'gray', xlab='x1', ylab='x2',
-        main='Weighted Hamiltonian-Restore Samples')
-contour(x_seq, y_seq, la, add=TRUE, col ='green')
-points(banana_hrstr[1:500,1:2],
-       cex=500*banana_hrstr[1:500,3]/sum(banana_hrstr[1:500,3]))
-
-# Plot marginals of the process
-subproc_jc_len <- 100
-subprocess <- banana_hrstr[1:subproc_jc_len,]
-ts <- c(0, cumsum(subprocess[,3]))
-for (i in 1:2){
-  plot(0, type = 'n', xlim = c(0, ts[subproc_jc_len+1]),
-       ylim=range(subprocess[,i]), xlab='t', ylab=paste0('x',i))
-  for (j in 1:subproc_jc_len){
-    lines(ts[j:(j+1)], rep(subprocess[j,i],2))
-  }
-}
-
-# Estimate of first moment
-weighted.mean(banana_hrstr[,1], banana_hrstr[,3])
-weighted.mean(banana_hrstr[,2], banana_hrstr[,3])
-
-weighted.mean(banana_hrstr[,1]^2, banana_hrstr[,3])
-weighted.mean(banana_hrstr[,2]^2, banana_hrstr[,3])

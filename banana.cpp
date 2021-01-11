@@ -1,21 +1,30 @@
 /* Banana Distribution
  *
- * Sampling via Random Walk Metropolis and the Independence Sampler
+ * Sample from a 'banana' distribution via Random Walk Metropolis,
+ * the Independence Sampler and Hamiltonian Monte Carlo. Print samples
+ * to files "banana_rwm_samples.txt", "banana_indep_sampler.txt"
+ * and "banana_hmc_samples.txt" respectively.
  *
  * g++ -Wall -std=c++11 -larmadillo -lm banana.cpp log_post_class.cpp
- * mcmc_class.cpp mcmc_rwm_class.cpp mcmc_indep_class.cpp -o banana
+ * mcmc_class.cpp mcmc_rwm_class.cpp mcmc_indep_class.cpp
+ * mcmc_hmc_class.cpp -o banana
+ *
+ * ./banana
  */
 #include "log_post_class.h"
 #include "mcmc_rwm_class.h"
 #include "mcmc_indep_class.h"
+#include "mcmc_hmc_class.h"
 #include <armadillo>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 
-#define BURN 10000
+#define BURN 100000
 #define THIN 100
-#define N_SAMPLES 10000
+#define N_SAMPLES 100000
+#define LEAPFROG_STEPS 100
+#define EPSILON 1.0
 
 using namespace std;
 using namespace arma;
@@ -59,18 +68,35 @@ int main()
     mat prop_cov = {{100.0, 0.0},
                     {0.0,   1.0}};
     
-    IndepSampler ismc;
-    ismc.get_init_state(init);
-    ismc.get_params(burn, thin, n_samples);
-    ismc.get_indep_prop(prop_mean, prop_cov);
-    ismc.get_post(banana);
+    IndepSampler ismc(prop_mean, prop_cov, banana,
+                      init, burn, thin, n_samples);
     ismc.indep_sampler();
     
     // Print samples to file
-    ofstream file2;
-    file2.open("banana_indep_sampler.txt");
-    ismc.print_chain(file2);
-    file2.close();
+    file.open("banana_indep_sampler.txt");
+    ismc.print_chain(file);
+    file.close();
+    
+    // ///////////////////////
+    // Hamiltonian Monte Carlo
+    // ///////////////////////
+    
+    // Add gradient information to LogPost object
+    banana.set_grad_log_post(grad_log_dens);
+    
+    // HMC object
+    thin = 1;
+    double epsilon = EPSILON;
+    int L = LEAPFROG_STEPS;
+    HMC hmc_chain(banana, init, burn, thin, n_samples, epsilon, L);
+    
+    // Generate samples
+    hmc_chain.hmc();
+    
+    // Print to file
+    file.open("banana_hmc_samples.txt");
+    hmc_chain.print_chain(file);
+    file.close();
     
     return 0;
 }

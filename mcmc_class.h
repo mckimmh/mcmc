@@ -21,16 +21,16 @@ public:
     // Constructor setting the posterior, initial state, burn-in,
     // thinning and number of samples
     
-    void get_init_state(const rowvec& initial_state);
+    void set_init_state(const rowvec& initial_state);
     // Sets the initial state
     
-    void get_params(const int burn, const int thin, const int n_samples);
+    void set_params(const int burn, const int thin, const int n_samples);
     // Sets parameters
     
     void print_params();
     // Prints parameters
     
-    void get_post(LogPost posterior);
+    void set_post(LogPost posterior);
     // Set the posterior distribution of interest
     
     void print_current();

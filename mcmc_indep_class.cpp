@@ -8,7 +8,26 @@
 using namespace std;
 using namespace arma;
 
-void IndepSampler::get_indep_prop(const vec& indep_prop_mean,
+IndepSampler::IndepSampler(const vec& indep_prop_mean,
+                           const mat& indep_prop_cov_mat,
+                           LogPost posterior, const rowvec& initial_state,
+                           const int burn, const int thin,
+                           const int n_samples)
+{
+    m_indep_prop_mean = indep_prop_mean;
+    m_indep_prop_cov_mat = indep_prop_cov_mat;
+    m_indep_prop_cov_mat_inverse = inv(m_indep_prop_cov_mat);
+    
+    m_posterior = posterior;
+    m_initial_state = initial_state;
+    m_dimension = initial_state.n_elem;
+    m_current = initial_state;
+    m_burn = burn;
+    m_thin = thin;
+    m_number_samples = n_samples;
+}
+
+void IndepSampler::set_indep_prop(const vec& indep_prop_mean,
                                   const mat& indep_prop_cov_mat)
 {
     m_indep_prop_mean = indep_prop_mean;

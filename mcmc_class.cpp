@@ -26,14 +26,14 @@ MCMC::MCMC(LogPost posterior, const rowvec& initial_state,
     m_number_samples = n_samples;
 }
 
-void MCMC::get_init_state(const rowvec& initial_state)
+void MCMC::set_init_state(const rowvec& initial_state)
 {
     m_initial_state = initial_state;
     m_dimension = initial_state.n_elem;
     m_current = initial_state;
 }
 
-void MCMC::get_params(const int burn, const int thin, const int n_samples)
+void MCMC::set_params(const int burn, const int thin, const int n_samples)
 {
     m_burn = burn;
     m_thin = thin;
@@ -47,7 +47,7 @@ void MCMC::print_params()
          << "Number of samples: " << m_number_samples << endl;
 }
 
-void MCMC::get_post(LogPost posterior)
+void MCMC::set_post(LogPost posterior)
 {
     m_posterior = posterior;
 }

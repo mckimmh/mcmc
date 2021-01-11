@@ -36,18 +36,18 @@ LogPost::LogPost(const mat& data,
     grad_U_vec.set_size(m_dimension);
 }
 
-void LogPost::get_data(const mat& data)
+void LogPost::set_data(const mat& data)
 {
     m_data = data;
 }
 
-void LogPost::get_log_post(double (*log_dens)(const rowvec& state,
+void LogPost::set_log_post(double (*log_dens)(const rowvec& state,
                                               const mat& data))
 {
     m_log_dens = log_dens;
 }
 
-void LogPost::get_grad_log_post(void (*grad_log_dens)(const rowvec& state,
+void LogPost::set_grad_log_post(void (*grad_log_dens)(const rowvec& state,
                                                       rowvec& grad,
                                                       const mat& data))
 {

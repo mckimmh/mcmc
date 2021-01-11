@@ -25,13 +25,13 @@ public:
     // Constructor - initializes data, log density,
     // gradient of the log density and dimension.
     
-    void get_data(const mat& data);
+    void set_data(const mat& data);
     // Sets Data
     
-    void get_log_post(double (*log_dens)(const rowvec& state, const mat& data));
+    void set_log_post(double (*log_dens)(const rowvec& state, const mat& data));
     // Sets the log density
     
-    void get_grad_log_post(void (*grad_log_dens)(const rowvec& state,
+    void set_grad_log_post(void (*grad_log_dens)(const rowvec& state,
                                                    rowvec& grad,
                                                    const mat& data));
     // Sets the gradient of the log density: a function to update grad
