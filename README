@@ -1,0 +1,59 @@
+Algorithms for MCMC
+
+# banana.R
+Analysis of algorithms sampling from the 'banana' distribution.
+
+# banana.cpp
+Sampling from a 'banana' distribution using Random Walk Metropolis
+and the Independence Sampler.
+
+# banana_hmc.cpp
+Using HMC to sample from a banana distribution
+
+# banana_hrstr.cpp
+Hamiltonian-Restore sampling from the banana distribution
+
+# diabetes_analysis.R
+Analysis of samples from a Logistic Regression model of a dataset
+on diabetes in a Pima Indian population
+
+# diabetes_thermo.cpp
+Thermodynamic integration of a Logistic Regression model for
+the Pima Indians diabetes dataset. Absolute evidence of the
+model computed via a comparison to the evidence for a Gaussian
+approximation. Laplace approximation checked against samples obtained via a
+Random Walk Metropolis algorithm.
+
+# dugong.R
+Analysis of algorithms sampling from the model of dugongs (sea cows)
+
+# dugong.cpp
+Sampling from a model of dugongs (sea cows) using Random-Walk Metropolis and
+the Independence Sampler.
+
+# german_bay_log_reg.cpp
+Sampling from a Bayesian Logistic regression model for a dataset on German
+Credit using Random Walk Metropolis.
+
+# german_credit.R
+Analysis of German Credit data and MCMC samples thereof.
+
+# log_post_class.cpp, log_post_class.h 
+Class representing a log posterior
+
+# log_post_class_test.cpp
+Test class LogPost. Check the log density, energy, gradient of the log density
+and gradient of the energy are correctly evaluated.
+
+# mcmc_class.cpp, mcmc_class.h
+Class MCMC representing a Markov chain generated for the purposes of Monte Carlo
+
+# mcmc_hmc_class.cpp, mcmc_hmc_class.h
+Class for Hamiltonian Monte Carlo, derived from mcmc_class.
+
+# mcmc_indep_class.cpp, mcmc_indep_class.h
+Class for the Independence sampler
+
+# mcmc_rwm_class.cpp, mcmc_rwm_class.h
+Class RWM derived from MCMC, representing a Markov chain generated using the
+Random Walk Metropolis algorithm
