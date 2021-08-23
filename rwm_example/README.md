@@ -1,6 +1,6 @@
 # Random Walk Metropolis
 
-The Random Walk Metropolis (RWM) algorithm [(Metropolis et al., 19, ](https://aip.scitation.org/doi/abs/10.1063/1.1699114), [Hastings)](https://academic.oup.com/biomet/article-abstract/57/1/97/284580) is one of the simplest algorithms for Markov Chain Monte Carlo. It generates each element in the Markov chain by first proposing a new state then accepting or rejecting that proposal state according to a certain probability. The accept/reject step ensures that the Markov chain has the correct invariant distribution. The Random Walk Metropolis algorithm uses a Gaussian proposal distribution.
+The Random Walk Metropolis (RWM) algorithm [(Metropolis et al., 1953; ](https://aip.scitation.org/doi/abs/10.1063/1.1699114), [Hastings, 1970)](https://academic.oup.com/biomet/article-abstract/57/1/97/284580) is one of the simplest algorithms for Markov Chain Monte Carlo. It generates each element in the Markov chain by first proposing a new state then accepting or rejecting that proposal state according to a certain probability. The accept/reject step ensures that the Markov chain has the correct invariant distribution. The Random Walk Metropolis algorithm uses a Gaussian proposal distribution.
 
 ## Implementation
 
@@ -23,7 +23,7 @@ On the other hand, if the standard deviation of each component of the proposal d
 
 ![](https://github.com/mckimmh/mcmc/blob/main/images/rwm_trace_plot_large_sd.png)
 
-Optimally the standard deviation of the proposal should be neither too small nor too large. Fortunately, theoretical results exist to help guide the selection of the proposal [(Roberts et al)](https://projecteuclid.org/journals/annals-of-applied-probability/volume-7/issue-1/Weak-convergence-and-optimal-scaling-of-random-walk-Metropolis-algorithms/10.1214/aoap/1034625254.full). The scale should be set so that the average acceptance rate is 0.234. Note that there are caveats to this result, such as applying to high-dimensional distributions with independent components, but it serves as a good rule of thumb for most distributions. The marginal traceplot for a chain with tuned proposal distribution (standard deviation approximately 1.3) is shown below.
+Optimally the standard deviation of the proposal should be neither too small nor too large. Fortunately, theoretical results exist to help guide the selection of the proposal [(Roberts et al., 1997)](https://projecteuclid.org/journals/annals-of-applied-probability/volume-7/issue-1/Weak-convergence-and-optimal-scaling-of-random-walk-Metropolis-algorithms/10.1214/aoap/1034625254.full). The scale should be set so that the average acceptance rate is 0.234. Note that there are caveats to this result, such as applying to high-dimensional distributions with independent components, but it serves as a good rule of thumb for most distributions. The marginal traceplot for a chain with tuned proposal distribution (standard deviation approximately 1.3) is shown below.
 
 ![](https://github.com/mckimmh/mcmc/blob/main/images/rwm_trace_plot_tuned_sd.png)
 

@@ -1,6 +1,6 @@
 # Hamiltonian Monte Carlo
 
-<em>Hamiltonian Monte Carlo</em> (HMC) is a gradient-based method for MCMC. The sampler proposes new states of the chain using approximate Hamiltonian dynamics, then uses a Metropolis-Hastings step to either accept or reject the proposed move. In order to make use of Hamiltonian dynamics, the algorithm works on an augmented state space, with an auxilliary <em>velocity</em> variable used to make proposals.
+<em>Hamiltonian Monte Carlo</em> (HMC) [(Dune et al., 1987)](https://www.sciencedirect.com/science/article/abs/pii/037026938791197X) is a gradient-based method for MCMC. The sampler proposes new states of the chain using approximate Hamiltonian dynamics, then uses a Metropolis-Hastings step to either accept or reject the proposed move. In order to make use of Hamiltonian dynamics, the algorithm works on an augmented state space, with an auxilliary <em>velocity</em> variable used to make proposals.
 
 ## Implementation
 
