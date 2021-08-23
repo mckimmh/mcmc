@@ -17,3 +17,7 @@ Too many leapfrog steps can generate a Markov chain with periodic behaviour, whe
 Just the right number of leapfrog steps, this case L=7, results in a chain with small autocorrelation.
 
 ![Autocorrelation Function when L=7](https://github.com/mckimmh/mcmc/blob/main/images/acf_L7_d1.png)
+
+A two-dimensional traceplots of the first 20 samples of the (close to) optimally-tuned chain are shown below.
+
+![Two-dimensional trace plot of an optimally tune Markov chain generated using HMC](https://github.com/mckimmh/mcmc/blob/main/images/trace_plot2d.png)
