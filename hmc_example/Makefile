@@ -12,3 +12,7 @@ include ../src/Makefile_obj
 
 hmc_bvg.o : hmc_bvg.cpp log_post.h mcmc.h hmc.h mvg.h
 	$(CXX) $(CXXFLAGS) -c hmc_bvg.cpp
+
+.PHONY : clean
+clean :
+	rm *.out *.o *.txt
