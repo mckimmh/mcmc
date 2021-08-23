@@ -1,8 +1,17 @@
 # Random Walk Metropolis
 
+The Random Walk Metropolis (RWM) algorithm is one of the simplest algorithms for Markov Chain Monte Carlo. It generates each element in the Markov chain by first proposing a new state then accepting or rejecting that proposal state according to a certain probability. The accept/reject step ensures that the Markov chain has the correct invariant distribution. The Random Walk Metropolis algorithm uses a Gaussian proposal distribution.
+
 ## Implementation
 
-
+Construct a object of class `RWM` using `RWM mc(log_post, initial_state, burn, thin, n_saples, prop_sd)` where
+* `log_post` is an object of class `LogPost` and represents the target log Posterior distribution. This contains the target distribution's dimension, data needed to compute the posterior and a function for evaluating the log probability density
+* `initial_state` is the initial state of the Markov chain and has type `arma::vec` 
+* `burn` the number of states to discard as a burn-in period
+* `thin` the thinning used for the Markov chain
+* `n_samples` the number of samples to generate
+* `prop_sd` the standard deviation of the spherical Gaussian proposal distribution.
+Once the Markov chain has been constructed, you can tune the proposal distribution using `mc.adapt_prop_sd()`, generate the chain using `mc.rwm()` and print samples to the console using `mc.print_chain()` or to an open `std::ofstream` file using `mc.print_chain(file)`.
 
 ## Example: Sampling from a bivariate Gaussian distribution
 
