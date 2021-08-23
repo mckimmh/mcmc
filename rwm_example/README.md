@@ -1,6 +1,6 @@
 # Random Walk Metropolis
 
-The Random Walk Metropolis (RWM) algorithm [(Metropolis et al., 1953; ](https://aip.scitation.org/doi/abs/10.1063/1.1699114), [Hastings, 1970)](https://academic.oup.com/biomet/article-abstract/57/1/97/284580) is one of the simplest algorithms for Markov Chain Monte Carlo. It generates each element in the Markov chain by first proposing a new state then accepting or rejecting that proposal state according to a certain probability. The accept/reject step ensures that the Markov chain has the correct invariant distribution. The Random Walk Metropolis algorithm uses a Gaussian proposal distribution.
+The Random Walk Metropolis (RWM) algorithm [(Metropolis et al., 1953; ](https://aip.scitation.org/doi/abs/10.1063/1.1699114) [Hastings, 1970)](https://academic.oup.com/biomet/article-abstract/57/1/97/284580) is one of the simplest algorithms for Markov Chain Monte Carlo. It generates each element in the Markov chain by first proposing a new state then accepting or rejecting that proposal state according to a certain probability. The accept/reject step ensures that the Markov chain has the correct invariant distribution. The Random Walk Metropolis algorithm uses a Gaussian proposal distribution.
 
 ## Implementation
 
