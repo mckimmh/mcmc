@@ -1,6 +1,8 @@
 # Hamiltonian Monte Carlo
 
-## Sampling of a Bivariate Gaussian Distribution
+Class `HMC` found in `include/hmc.h` is an implementation of Hamiltonian Monte Carlo. Construct an `HMC` object using `HMC mc(log_post, initial_state, burn, thin, n_samples, epsilon, L)`. Here, `log_post` is an object of class `LogPost`, which represents the log posterior distribution that is the target distribution of the Markov Chain. This object contains information of the dimension of the target, data used in defining it, a function to evaluate the log-density and a function to evaluate the gradient of the log-density. `initial_state` is the initial state of the Markov chain, represented as an `arma::vec`. `burn` is the length of the burn-in period. `thin` is the thinning used for the Markov chain. `n_samples` is the number of thinned samples to generated. `epsilon` is the leapfrog step-size and `L` is the number of leapfrog steps.
+
+## Example: Sampling a Bivariate Gaussian Distribution
 
 Hamiltonian Monte Carlo is notoriously difficult to tune. One must first choose the leapfrog step-size epsilon. This can be done empirically by choosing a value of epsilon so that the acceptance rate of proposed points remains high. There tends to be a sharp stability limit after which the acceptance rate falls drastically. 
 

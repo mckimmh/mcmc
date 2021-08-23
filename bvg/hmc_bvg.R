@@ -75,6 +75,6 @@ contour(xs, xs, zs, xlab='x1', ylab='x2', nlevels=3, col='gray',
         xlim=c(-2, 2), ylim=c(-2,2))
 
 # 2d traceplot
-lines(x[1:20,])
+lines(x[1:25,], type='b', pch=4)
 
 

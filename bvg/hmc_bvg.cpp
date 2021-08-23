@@ -1,9 +1,8 @@
-/* HMC sampling from a Multivariate Gaussian distribution.
+/* HMC sampling from a Bivariate Gaussian distribution.
  *
  * Covariance matrix:
- *      1.2, 0.4
- *      0.4, 0.8
- * Prints samples to file "bvg_hmc_samples.txt".
+ *      1.0, 0.9
+ *      0.9, 1.0
  */
 #include "log_post.h"
 #include "hmc.h"
@@ -77,7 +76,7 @@ int main()
     // Generate optimally tuned chain
     L = 7;
     n_samples = 100000;
-    HMC mc(mvg, init, burn, thin, n_samples);
+    HMC mc(mvg, init, burn, thin, n_samples, epsilon, L);
     mc.hmc();
     
     file.open("hmc_bvg_samples.txt");
