@@ -61,7 +61,7 @@ int main()
     std::string str1 = "hmc_bvg_samples_L";
     std::string str3 = ".txt";
     
-    for (int L = 1; L < 6; L++)
+    for (int L = 1; L < 21; L++)
     {
         HMC mc(mvg, init, burn, thin, n_samples, epsilon, L);
         mc.hmc();
@@ -70,15 +70,20 @@ int main()
         std::string str4 = str1+str2+str3;
         file.open(str4);
         if (!file.is_open()) std::cerr << "File not open\n";
-        mc.print(file);
+        mc.print_chain(file);
         file.close();
     }
     
-    // Print samples to file
-    //std::ofstream file;
-    //file.open("bvg_hmc_samples.txt");
-    //mc.print_chain(file);
-    //file.close();
+    // Generate optimally tuned chain
+    L = 7;
+    n_samples = 100000;
+    HMC mc(mvg, init, burn, thin, n_samples);
+    mc.hmc();
+    
+    file.open("hmc_bvg_samples.txt");
+    if (!file.is_open()) std::cerr << "File not open\n";
+    mc.print_chain(file);
+    file.close();
     
     return 0;
 }
