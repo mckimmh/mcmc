@@ -2,7 +2,14 @@
 library(coda)
 
 # Covariance (and precision) matrix
-Sigma <- matrix(c(1.2, 0.4, 0.4, 0.8), nrow=2)
+Sigma <- matrix(c(1.0, 0.9, 0.9, 1.0), nrow=2)
+
+# Tuning epsilon
+epsilon_choice <- read.csv("hmc_bvg_epsilon_avg_accept_rate.txt",
+                           sep="")
+plot(epsilon_choice, type='l', ylab="Average Acceptance Rate",
+     xlab="Leapfrog step-size",
+     main="Choice of Leapfrog step-size")
 
 # Samples
 x <- read.table("bvg_hmc_samples.txt",
