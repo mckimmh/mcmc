@@ -1,6 +1,18 @@
 # Hamiltonian Monte Carlo
 
-Class `HMC` found in `include/hmc.h` is an implementation of Hamiltonian Monte Carlo. Construct an `HMC` object using `HMC mc(log_post, initial_state, burn, thin, n_samples, epsilon, L)`. Here, `log_post` is an object of class `LogPost`, which represents the log posterior distribution that is the target distribution of the Markov Chain. This object contains information of the dimension of the target, data used in defining it, a function to evaluate the log-density and a function to evaluate the gradient of the log-density. `initial_state` is the initial state of the Markov chain, represented as an `arma::vec`. `burn` is the length of the burn-in period. `thin` is the thinning used for the Markov chain. `n_samples` is the number of thinned samples to generated. `epsilon` is the leapfrog step-size and `L` is the number of leapfrog steps.
+<em>Hamiltonian Monte Carlo</em> (HMC) is a gradient-based method for MCMC. The sampler proposes new states of the chain using approximate Hamiltonian dynamics, then uses a Metropolis-Hastings step to either accept or reject the proposed move. In order to make use of Hamiltonian dynamics, the algorithm works on an augmented state space, with an auxilliary <em>velocity</em> variable used to make proposals.
+
+## Implementation
+
+Class `HMC` found in `include/hmc.h` is an implementation of Hamiltonian Monte Carlo. Objects can be constructed using `HMC mc(log_post, initial_state, burn, thin, n_samples, epsilon, L)`. Here:
+* `log_post` is an object of class `LogPost`, which represents the log posterior distribution that is the target distribution of the Markov Chain. This object contains information of the dimension of the target, data used in defining it, a function to evaluate the log-density and a function to evaluate the gradient of the log-density
+* `initial_state` is the initial state of the Markov chain, represented as an `arma::vec`
+* `burn` is the length of the burn-in period
+* `thin` is the thinning used for the Markov chain
+* `n_samples` is the number of thinned samples to generated
+* `epsilon` is the leapfrog step-size
+* `L` is the number of leapfrog steps.
+Generate the Markov chain using `mc.hmc()` then print samples to a file using `mc.print_chain(file)`, for `file` an object of type `std::ofstream` which should be open, so that `file.is_open()` returns `true`.
 
 ## Example: Sampling a Bivariate Gaussian Distribution
 
