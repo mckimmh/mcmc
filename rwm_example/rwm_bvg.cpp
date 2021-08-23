@@ -32,14 +32,44 @@ int main()
 
     int burn = 0;
     int thin = 1;
-    int n_samples = 1000;
+    int n_samples = 10000;
+
+    std::ofstream file;
     
-    RWM mc(mvg, init, burn, thin, n_samples);
-    mc.adapt_prop_sd();
-    std::cout << mc.get_prop_sd() << '\n';
+    // Proposal standard deviation "too small"
+    double prop_sd = 0.1;
+    RWM mc1(mvg, init, burn, thin, n_samples, prop_sd);
+    mc1.rwm();
+    file.open("rwm_samples_sd_small.txt");
+    mc1.print_chain(file);
+    file.close();
     
-    // Generate entire chain
-    mc.rwm();
+    //Proposal standard deviation "too large"
+    prop_sd = 10;
+    RWM mc2(mvg, init, burn, thin, n_samples, prop_sd);
+    mc2.rwm();
+    file.open("rwm_samples_sd_large.txt");
+    mc2.print_chain(file);
+    file.close();
+    
+    // Proposal standard deviation tuned
+    RWM mc3(mvg, init, burn, thin, n_samples);
+    mc3.adapt_prop_sd();
+    std::cout << mc3.get_prop_sd() << '\n';
+    mc3.rwm();
+    file.open("rwm_samples_sd_tuned.txt");
+    mc3.print_chain(file);
+    file.close();
+    
+    // With thinning
+    n_samples = 100000;
+    thin = 30;
+    RWM mc4(mvg, init, burn, thin, n_samples);
+    mc4.adapt_prop_sd();
+    mc4.rwm();
+    file.open("rwm_samples_sd_tuned_thinned.txt");
+    mc4.print_chain(file);
+    file.close();
     
     return 0;
 }
