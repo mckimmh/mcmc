@@ -1,0 +1,13 @@
+CXX = clang++
+CXXFLAGS = -Wall -O2 -I../include -std=c++17
+LIBS = -larmadillo -lm
+SRC = ../src
+
+HMC = hmc.o leapfrog.o log_post.o mcmc.o print.o
+IMPORT = importance.o log_post.o mvg.o regen_dist.o
+REJ = log_post.o mvg.o print.o regen_dist.o rej_sampler.o
+RWM = log_post.o mcmc.o print.o rwm.o
+RWRSTR = jumpar.o log_post.o mvg.o print.o regen_dist.o rwrstr.o
+THERMO = log_post.o thermo.o
+
+

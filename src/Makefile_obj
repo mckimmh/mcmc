@@ -1,0 +1,41 @@
+################################################################################
+
+hmc.o: hmc.cpp hmc.h leapfrog.h log_post.h mcmc.h print.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/hmc.cpp
+
+importance.o : importance.cpp importance.h log_post.h regen_dist.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/importance.cpp
+
+leapfrog.o : leapfrog.cpp leapfrog.h log_post.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/leapfrog.cpp
+
+log_post.o: log_post.cpp log_post.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/log_post.cpp
+
+log_reg.o: log_reg.cpp log_reg.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/log_reg.cpp
+
+mcmc.o: mcmc.cpp log_post.h mcmc.h print.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/mcmc.cpp
+
+mvg.o: mvg.cpp mvg.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/mvg.cpp
+
+print.o: print.cpp print.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/print.cpp
+
+regen_dist.o: regen_dist.cpp mvg.h regen_dist.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/regen_dist.cpp
+
+rej_sampler.o: rej_sampler.cpp log_post.h mvg.h print.h regen_dist.h \
+               rej_sampler.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/rej_sampler.cpp
+
+rwm.o: rwm.cpp log_post.h mcmc.h rwm.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/rwm.cpp
+
+t_dist.o: t_dist.cpp t_dist.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/t_dist.cpp
+
+thermo.o : thermo.cpp log_post.h thermo.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)/thermo.cpp
