@@ -1,10 +1,6 @@
-# Monte Carlo Algorithms
+# Markov Chain Monte Carlo Algorithms
 
-Sampling algorithms including:
-* Rejection Sampling
-* Importance Sampling
-* Markov Chain Monte Carlo
-    * Random-Walk Metropolis
-    * Hamiltonian Monte Carlo
-and for estimating normalizing constants:
-* Thermodynamic Integration
+C++ implementations of Markov Chain Monte Carlo (MCMC) algorithms:
+* Random Walk Metropolis (RWM)
+* Hamiltonian Monte Carlo (HMC)
+Uses the C++ Armadillo library.
