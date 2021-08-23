@@ -16,22 +16,24 @@ Generate the Markov chain using `mc.hmc()` then print samples to a file using `m
 
 ## Example: Sampling a Bivariate Gaussian Distribution
 
-Hamiltonian Monte Carlo is notoriously difficult to tune. One must first choose the leapfrog step-size epsilon. This can be done empirically by choosing a value of epsilon so that the acceptance rate of proposed points remains high. There tends to be a sharp stability limit after which the acceptance rate falls drastically. 
+We consider using HMC to sample from a bivariate zero-mean Gaussian distribution. Let the variances of both components be 1 and let the covariance between variables be 0.9. Though this is a low-dimensional example, the strong correlation between components makes it an interesting test case. When Hamiltonian dynamics are simulated exactly, the Hamiltonian (the energy corresponding to the augmented target distribution) is preserved exactly. In practice, the dynamics must be simulated approximately using a numerical integrator. The most popular integrator is the Leapfrog method, which alternates between updating the velocity and the position variables. Tuning HMC is notoriously difficult; it amounts to choosing a suitable leapfrog step-size (epsilon) and number of steps (L).
+
+First use a large number of leapfrog steps to help determine a suitable step-size. Epsilon should be chosen to be as large as possible (to minimize computational cost), whilst ensuring the Hamiltonian trajectories remain stable. A low acceptance rate of proposed moves indicates that trajectories are unstable. The plot below shows the average acceptance rate for L=100 and epsilon = 0.01, 0.02, ..., 1.00. There is a sharp deterioration in stability after rouglhy epsilon = 0.5. We choose to use epsilon = 0.30.
 
 ![Stability Limit of the Leapfrog Step-size](https://github.com/mckimmh/mcmc/blob/main/images/leapfrog_step_size.png)
 
-Once the a good step-size has been found, choose the number of leapfrog steps (L) so that the autocorrelation of samples is small. Too few steps and the sampler produces a chain with random-walk like behaviour and high autocorrelation
+Once the step-size is fixed, choose the number of leapfrog steps so that the correlation between consecutive states in the Markov chain is as small as possible. In other words, we want the chain's autocorrelation to be small. The plots below show the Auto-correlation function for the d=1 marginal chain and various values of L. Too few steps results in proposed states being close to the current state and hence a high correlation between samples.
 
 ![Autocorrelation Function when L=1](https://github.com/mckimmh/mcmc/blob/main/images/acf_L1_d1.png)
 
-Too many leapfrog steps can generate a Markov chain with periodic behaviour, where the chain oscillates from one part of the state space to the other, so that there is a strong negative correlation between consecutive states.
+Too many leapfrog steps can result in periodic behaviour, where the chain oscillates from one part of the state space to another, so there is a strong negative correlation between consecutive states.
 
 ![Autocorrelation Function when L=16](https://github.com/mckimmh/mcmc/blob/main/images/acf_L16_d1.png)
 
-Just the right number of leapfrog steps, this case L=7, results in a chain with small autocorrelation.
+Just the right number of leapfrog steps (in this case L=7) results in a chain with small autocorrelation, which is highly desirable in MCMC samplers.
 
 ![Autocorrelation Function when L=7](https://github.com/mckimmh/mcmc/blob/main/images/acf_L7_d1.png)
 
-A two-dimensional traceplots of the first 20 samples of the (close to) optimally-tuned chain are shown below.
+The plot below shows a two-dimensional traceplot of the first 20 samples of the (close to) optimally-tuned chain.
 
 ![Two-dimensional trace plot of an optimally tune Markov chain generated using HMC](https://github.com/mckimmh/mcmc/blob/main/images/trace_plot2d.png)
