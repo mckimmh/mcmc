@@ -34,6 +34,6 @@ Just the right number of leapfrog steps (in this case L=7) results in a chain wi
 
 ![Autocorrelation Function when L=7](https://github.com/mckimmh/mcmc/blob/main/images/acf_L7_d1.png)
 
-The plot below shows a two-dimensional traceplot of the first 20 samples of the (close to) optimally-tuned chain.
+The plot below shows a two-dimensional traceplot of the first 25 samples of the (close to) optimally-tuned chain.
 
 ![Two-dimensional trace plot of an optimally tune Markov chain generated using HMC](https://github.com/mckimmh/mcmc/blob/main/images/trace_plot2d.png)
