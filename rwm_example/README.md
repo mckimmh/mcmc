@@ -4,7 +4,7 @@ The Random Walk Metropolis (RWM) algorithm [(Metropolis et al., 1953; ](https://
 
 ## Implementation
 
-Construct a object of class `RWM` using `RWM mc(log_post, initial_state, burn, thin, n_saples, prop_sd)` where
+Construct a object of class `RWM` using `RWM mc(log_post, initial_state, burn, thin, n_samples, prop_sd)` where
 * `log_post` is an object of class `LogPost` and represents the target log Posterior distribution. This contains the target distribution's dimension, data needed to compute the posterior and a function for evaluating the log probability density
 * `initial_state` is the initial state of the Markov chain and has type `arma::vec` 
 * `burn` the number of states to discard as a burn-in period
@@ -15,7 +15,7 @@ Once the Markov chain has been constructed, you can tune the proposal distributi
 
 ## Example: Sampling from a bivariate Gaussian distribution
 
-We consider using HMC to sample from a bivariate zero-mean Gaussian distribution. Let the variances of both components be 1 and let the covariance between variables be 0.9. Though this is a low-dimensional example, the strong correlation between components makes it an interesting test case. An important tuning parameter for a RWM algorithm with spherical Gaussian proposal distribution is the scale of the proposal. If the standard deviation of the proposal is small, then proposed points are close to the current point, hence tend to have a similar probability density so are often accepted. Though proposed moves are likely to be made, since each is relatively small, the chain mixes slowly. The traceplot below shows an example of a slowly mixing chain, where the standard deviation of each component of the proposal distribution is  0.1.
+We consider using RWM to sample from a bivariate zero-mean Gaussian distribution. Let the variances of both components be 1 and let the covariance between variables be 0.9. Though this is a low-dimensional example, the strong correlation between components makes it an interesting test case. An important tuning parameter for a RWM algorithm with spherical Gaussian proposal distribution is the scale of the proposal. If the standard deviation of the proposal is small, then proposed points are close to the current point, hence tend to have a similar probability density so are often accepted. Though proposed moves are likely to be made, since each is relatively small, the chain mixes slowly. The traceplot below shows an example of a slowly mixing chain, where the standard deviation of each component of the proposal distribution is  0.1.
 
 ![](https://github.com/mckimmh/mcmc/blob/main/images/rwm_trace_plot_small_sd.png)
 
